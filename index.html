@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TechhNova</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <header>
+      <nav class="navbar">
+        <div class="logo">Techh<span>Nova</span></div>
+
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#" class="active">Home</a></li>
+          <li><a href="#">Shop</a></li>
+          <li><a href="#">Categories</a></li>
+          <li><a href="#">Feature</a></li>
+          <li><a href="#">About Us</a></li>
+        </ul>
+
+        <div class="auth-btns">
+          <button class="login">Log in</button>
+          <button class="register">Register</button>
+          <div class="menu-toggle" id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Powering Your World With <span>Smarter</span> Tech</h1>
+        <p>
+          Explore The Latest Gadgets And Accessories Designed To Make Life
+          Faster, Easier And More Connected.
+        </p>
+        <a href="#" class="cta-btn">Explore Now →</a>
+
+        <div class="rating">
+          <div class="ratingimg">
+            <img src="pictures/img1.jpg" alt="" />
+            <img src="pictures/img2.jpg" alt="" />
+            <img src="pictures/img3.jpg" alt="" />
+            <img src="pictures/img4.jpg" alt="" />
+            <img src="pictures/img5.jpg" alt="" />
+          </div>
+          <div class="stars">
+            ⭐️⭐️⭐️⭐️⭐️ <span>4.8/5</span> Trusted by 500+ Customers
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-image">
+        <img src="pictures/pic1.jpg" alt="VR Kid" class="animated-img" />
+      </div>
+    </section>
+
+    <!-- price and goods available-->
+    <section class="tech-collection">
+      <div class="section-header">
+        <h2>Discover Our Latest Tech Collections</h2>
+        <p>Find The Right Gadgets For Work, Play And Everything In Between</p>
+        <div class="tabs">
+          <button class="tab active">New Arrivals</button>
+          <button class="tab">Best Sellers</button>
+          <button class="tab">Exclusive Deals</button>
+          <button class="tab">Trending Now</button>
+        </div>
+      </div>
+
+      <div class="collection-container">
+        <!-- Sidebar -->
+        <aside class="filter-sidebar">
+          <div class="filter-section">
+            <h3>Price</h3>
+            <input
+              type="range"
+              id="priceRange"
+              min="0"
+              max="1000000"
+              step="1000"
+              value="1000000"
+            />
+            <p>₦0 - ₦<span id="priceValue">1000000</span></p>
+          </div>
+
+          <div class="filter-section">
+            <h3>Categories</h3>
+            <ul>
+              <li>
+                <input type="checkbox" class="category" value="Phones" /> Phones
+              </li>
+              <li>
+                <input type="checkbox" class="category" value="Laptops" />
+                Laptops
+              </li>
+              <li>
+                <input type="checkbox" class="category" value="Accessories" />
+                Accessories
+              </li>
+              <li>
+                <input type="checkbox" class="category" value="Speakers" />
+                Speakers
+              </li>
+              <li>
+                <input type="checkbox" class="category" value="Gaming" /> Gaming
+              </li>
+            </ul>
+          </div>
+
+          <div class="filter-section">
+            <h3>Brand</h3>
+            <ul>
+              <li>
+                <input type="checkbox" class="brand" value="Apple" /> Apple
+              </li>
+              <li>
+                <input type="checkbox" class="brand" value="Samsung" /> Samsung
+              </li>
+              <li><input type="checkbox" class="brand" value="HP" /> HP</li>
+              <li><input type="checkbox" class="brand" value="Dell" /> Dell</li>
+              <li>
+                <input type="checkbox" class="brand" value="Tecno" /> Tecno
+              </li>
+            </ul>
+          </div>
+
+          <div class="filter-section">
+            <h3>Product Rating</h3>
+            <ul>
+              <li><input type="radio" name="rating" value="5" /> ⭐⭐⭐⭐⭐</li>
+              <li><input type="radio" name="rating" value="4" /> ⭐⭐⭐⭐+</li>
+              <li><input type="radio" name="rating" value="3" /> ⭐⭐⭐+</li>
+            </ul>
+          </div>
+        </aside>
+
+        <!-- Products Grid -->
+        <div class="products-grid" id="productList">
+          <!-- Products inserted dynamically from JS -->
+        </div>
+      </div>
+
+      <div class="pagination">
+        <button class="prev">‹</button>
+        <button class="page active">1</button>
+        <button class="page">2</button>
+        <button class="next">›</button>
+      </div>
+    </section>
+    <script src="script.js"></script>
+  </body>
+</html>
