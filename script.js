@@ -44,6 +44,7 @@ document.querySelectorAll(".nav-links a").forEach((link) => {
     spans[2].style.transform = "none";
   });
 });
+
 const products = [
   {
     name: "Apple Airpods",
@@ -52,6 +53,8 @@ const products = [
     brand: "Apple",
     rating: 4,
     img: "pictures/apple.jpg",
+    description:
+      "Premium wireless earbuds with noise cancellation and seamless integration with Apple devices.",
   },
   {
     name: "Iphone 16",
@@ -60,6 +63,8 @@ const products = [
     brand: "Apple",
     rating: 5,
     img: "pictures/iphone.jpg",
+    description:
+      "The latest iPhone with advanced camera system, A18 chip, and all-day battery life.",
   },
   {
     name: "SmartWatch",
@@ -68,6 +73,8 @@ const products = [
     brand: "Apple",
     rating: 4,
     img: "pictures/smartwatch.jpg",
+    description:
+      "Track your fitness, receive notifications, and stay connected with this advanced smartwatch.",
   },
   {
     name: "Game Console",
@@ -76,6 +83,8 @@ const products = [
     brand: "Sony",
     rating: 5,
     img: "pictures/game.jpg",
+    description:
+      "Next-gen gaming console with 4K graphics, fast loading times, and exclusive titles.",
   },
   {
     name: "Asus Vivobook",
@@ -84,6 +93,8 @@ const products = [
     brand: "Asus",
     rating: 4,
     img: "pictures/laptop.jpg",
+    description:
+      "Powerful laptop for work and entertainment with high-performance processor and vibrant display.",
   },
   {
     name: "Bluetooth Speaker",
@@ -92,6 +103,8 @@ const products = [
     brand: "Bose",
     rating: 3,
     img: "pictures/blueetooth.jpg",
+    description:
+      "Portable speaker with crystal clear sound, deep bass, and long battery life.",
   },
   {
     name: "Apple Earbuds",
@@ -100,6 +113,8 @@ const products = [
     brand: "Bose",
     rating: 3,
     img: "pictures/apple.jpg",
+    description:
+      "Comfortable earbuds with excellent sound quality and noise isolation.",
   },
   {
     name: "Iphone 16",
@@ -108,6 +123,7 @@ const products = [
     brand: "Bose",
     rating: 3,
     img: "pictures/iphone.jpg",
+    description: "Latest smartphone with advanced features and premium design.",
   },
   {
     name: "Iphone 13",
@@ -116,6 +132,8 @@ const products = [
     brand: "Apple",
     rating: 3,
     img: "pictures/iphone.jpg",
+    description:
+      "Reliable iPhone with great camera and performance at an affordable price.",
   },
   {
     name: "Bluetooth Speaker",
@@ -124,6 +142,8 @@ const products = [
     brand: "Bose",
     rating: 3,
     img: "pictures/bluetooth1.jpg",
+    description:
+      "Wireless speaker with 360-degree sound and waterproof design.",
   },
   {
     name: "Samsung Airbud",
@@ -132,6 +152,8 @@ const products = [
     brand: "Bose",
     rating: 3,
     img: "pictures/Airbud2.jpg",
+    description:
+      "True wireless earbuds with active noise cancellation and long battery life.",
   },
   {
     name: "Iphone 12",
@@ -140,6 +162,8 @@ const products = [
     brand: "Bose",
     rating: 3,
     img: "pictures/iphone12.jpg",
+    description:
+      "Popular iPhone model with excellent performance and camera capabilities.",
   },
   {
     name: "Game Console",
@@ -148,6 +172,8 @@ const products = [
     brand: "Bose",
     rating: 3,
     img: "pictures/gameconsole.jpg",
+    description:
+      "Gaming console with immersive graphics and extensive game library.",
   },
   {
     name: "Bluetooth Speaker",
@@ -156,6 +182,8 @@ const products = [
     brand: "Bose",
     rating: 3,
     img: "https://via.placeholder.com/250",
+    description:
+      "High-quality portable speaker with rich sound and durable build.",
   },
   {
     name: "Bluetooth Speaker",
@@ -164,6 +192,8 @@ const products = [
     brand: "Bose",
     rating: 3,
     img: "https://via.placeholder.com/250",
+    description:
+      "Compact wireless speaker perfect for travel and outdoor activities.",
   },
   {
     name: "Bluetooth Speaker",
@@ -172,12 +202,21 @@ const products = [
     brand: "Bose",
     rating: 3,
     img: "https://via.placeholder.com/250",
+    description:
+      "Premium speaker with advanced audio technology and sleek design.",
   },
 ];
 
 const productList = document.getElementById("productList");
 const priceRange = document.getElementById("priceRange");
 const priceValue = document.getElementById("priceValue");
+const modal = document.getElementById("productModal");
+const modalBody = document.getElementById("modalBody");
+const closeModal = document.querySelector(".close");
+
+// Current product and quantity for modal
+let currentProduct = null;
+let currentQuantity = 1;
 
 function displayProducts(list) {
   productList.innerHTML = "";
@@ -194,9 +233,94 @@ function displayProducts(list) {
         <div class="rating">${"⭐".repeat(prod.rating)}</div>
       </div>
     `;
+
+    // Add click event to show product details
+    card.addEventListener("click", () => {
+      showProductDetails(prod);
+    });
+
     productList.appendChild(card);
   });
 }
+
+function showProductDetails(product) {
+  currentProduct = product;
+  currentQuantity = 1;
+
+  modalBody.innerHTML = `
+    <img src="${product.img}" alt="${product.name}" class="modal-product-image">
+    <div class="modal-product-info">
+      <h3>${product.name}</h3>
+      <p class="price">₦${product.price.toLocaleString()}</p>
+      <p class="category">Category: ${product.category}</p>
+      <p class="brand">Brand: ${product.brand}</p>
+      <div class="rating">${"⭐".repeat(product.rating)}</div>
+      <p class="description">${product.description}</p>
+      
+      <div class="quantity-selector">
+        <button class="quantity-btn minus">-</button>
+        <span class="quantity-display">${currentQuantity}</span>
+        <button class="quantity-btn plus">+</button>
+      </div>
+      
+      <button class="add-to-cart">Add to Cart - ₦${(
+        product.price * currentQuantity
+      ).toLocaleString()}</button>
+    </div>
+  `;
+
+  // Add event listeners to quantity buttons
+  const minusBtn = modalBody.querySelector(".minus");
+  const plusBtn = modalBody.querySelector(".plus");
+  const quantityDisplay = modalBody.querySelector(".quantity-display");
+  const addToCartBtn = modalBody.querySelector(".add-to-cart");
+
+  minusBtn.addEventListener("click", () => {
+    if (currentQuantity > 1) {
+      currentQuantity--;
+      quantityDisplay.textContent = currentQuantity;
+      updateAddToCartButton(addToCartBtn);
+    }
+  });
+
+  plusBtn.addEventListener("click", () => {
+    currentQuantity++;
+    quantityDisplay.textContent = currentQuantity;
+    updateAddToCartButton(addToCartBtn);
+  });
+
+  addToCartBtn.addEventListener("click", () => {
+    alert(
+      `Added ${currentQuantity} ${product.name}(s) to cart! Total: ₦${(
+        product.price * currentQuantity
+      ).toLocaleString()}`
+    );
+    closeModalFunc();
+  });
+
+  // Show the modal
+  modal.style.display = "block";
+}
+
+function updateAddToCartButton(button) {
+  button.textContent = `Add to Cart - ₦${(
+    currentProduct.price * currentQuantity
+  ).toLocaleString()}`;
+}
+
+function closeModalFunc() {
+  modal.style.display = "none";
+}
+
+// Close modal when clicking the X
+closeModal.addEventListener("click", closeModalFunc);
+
+// Close modal when clicking outside of it
+window.addEventListener("click", (event) => {
+  if (event.target === modal) {
+    closeModalFunc();
+  }
+});
 
 function filterProducts() {
   const selectedCategories = Array.from(
