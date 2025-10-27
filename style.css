@@ -537,7 +537,7 @@ body {
 
 /* ====== SIDEBAR ====== */
 .filter-sidebar {
-  background: #1a0333;
+  /* background: #1a0333; */
   padding: 15px;
   border-radius: 10px;
   height: fit-content;
@@ -545,23 +545,32 @@ body {
 
 .filter-section {
   margin-bottom: 1.2rem;
+  /* background: linear-gradient(135deg, #2d075480, #6a136c80); */
+  background: linear-gradient(90deg, #2d075480, #6a136c80);
+  border-radius: 12px;
 }
 
 .filter-section h3 {
-  font-size: 1rem;
+  font-size: 32px;
+  font-weight: 500;
+  font-family: lateef;
+  text-align: center;
   margin-bottom: 0.4rem;
-  border-bottom: 1px solid #333;
+  /* border-bottom: 1px solid #333;   */
   padding-bottom: 4px;
 }
 
 .filter-section ul {
   list-style: none;
   margin-top: 0.4rem;
+  /* text-align: center; */
 }
 
 .filter-section li {
   margin: 4px 0;
-  font-size: 0.9rem;
+  font-size: 20px;
+  text-align: inherit;
+  font-family: lateef;
 }
 
 /* ====== PRODUCT GRID ====== */
@@ -595,6 +604,7 @@ body {
   animation: fadeIn 0.5s ease forwards;
   min-height: 300px;
   cursor: pointer;
+  position: relative;
 }
 
 .product-card:hover {
@@ -632,6 +642,9 @@ body {
 .rating {
   color: gold;
   font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 /* ====== PAGINATION ====== */
@@ -920,7 +933,9 @@ body {
   /* Reset bottom margin for filter sections inside the grid */
   .filter-section {
     margin-bottom: 0;
-    background: rgba(255, 255, 255, 0.05);
+
+    background: linear-gradient(135deg, #2d075480, #6a136c80);
+
     padding: 0.8rem;
     border-radius: 8px;
     min-height: fit-content;
@@ -1125,7 +1140,8 @@ body {
   }
 
   .filter-section h3 {
-    font-size: 0.7rem;
+    font-size: 32px;
+    /* font-weight: 500; */
   }
 
   .filter-section li {
@@ -1140,5 +1156,82 @@ body {
   .product-card img {
     max-height: 80px;
     /* border-radius: 100%; */
+  }
+}
+
+/* ====== LOVE EMOJI AND ARROW BUTTON STYLES ====== */
+.love-icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.love-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: rgba(236, 178, 178, 0.7);
+  transition: all 0.3s ease;
+}
+
+.love-icon:hover svg,
+.love-icon.loved svg {
+  fill: #cf24d2;
+  transform: scale(1.1);
+}
+
+.details-arrow {
+  background: #ffffff;
+  border: none;
+  color: #481e51;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  margin-left: auto;
+}
+
+.details-arrow:hover {
+  transform: translateX(3px);
+  box-shadow: 0 0 10px rgba(207, 36, 210, 0.5);
+}
+
+/* Responsive adjustments for the new elements */
+@media (max-width: 900px) {
+  .love-icon {
+    width: 15px;
+    height: 15px;
+    top: 6px;
+    right: 6px;
+  }
+
+  .details-arrow {
+    width: 15px;
+    height: 15px;
+    /* font-size: 0.9rem;  */
+  }
+}
+
+@media (max-width: 600px) {
+  .love-icon {
+    width: 18px;
+    height: 18px;
+    top: 6px;
+    right: 6px;
+  }
+
+  .details-arrow {
+    width: 22px;
+    height: 22px;
+    font-size: 0.8rem;
   }
 }
