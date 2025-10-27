@@ -112,7 +112,7 @@ const products = [
     category: "Phones",
     brand: "Bose",
     rating: 3,
-    img: "pictures/sparkgo.jpg",
+    img: "pictures/sparkGo.jpg",
     description:
       "Stylish smartphone with powerful performance and long-lasting battery life",
   },
@@ -400,3 +400,4 @@ document
 
 // Initial load
 displayProducts(products);
+
