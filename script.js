@@ -400,4 +400,112 @@ document
 
 // Initial load
 displayProducts(products);
+// why-section.js
+// Simple scroll reveal using IntersectionObserver
+(function () {
+  const items = document.querySelectorAll(".reveal");
 
+  if ("IntersectionObserver" in window) {
+    const obs = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.18 }
+    );
+
+    items.forEach((i) => obs.observe(i));
+  } else {
+    // fallback: just reveal all
+    items.forEach((i) => i.classList.add("visible"));
+  }
+
+  // Small keyboard focus effect for accessibility:
+  items.forEach((card) => {
+    card.addEventListener("focus", () => card.classList.add("visible"));
+  });
+})();
+
+// Mobile carousel functionality
+document.addEventListener("DOMContentLoaded", function () {
+  const cards = document.querySelectorAll(".why-card");
+  const leftBtn = document.querySelector(".scroll-btn.left");
+  const rightBtn = document.querySelector(".scroll-btn.right");
+  let currentSlide = 0;
+  const totalSlides = Math.ceil(cards.length / 2); // 2 cards per slide
+
+  // Function to show specific slide
+  function showSlide(slideIndex) {
+    // Hide all cards
+    cards.forEach((card) => {
+      card.classList.remove("active");
+    });
+
+    // Show cards for current slide (2 cards per slide)
+    const startIndex = slideIndex * 2;
+    const endIndex = startIndex + 2;
+
+    for (let i = startIndex; i < endIndex && i < cards.length; i++) {
+      cards[i].classList.add("active");
+    }
+
+    // Update button states
+    updateButtonStates();
+  }
+
+  // Function to update button states
+  function updateButtonStates() {
+    if (currentSlide === 0) {
+      leftBtn.style.opacity = "0.5";
+      leftBtn.style.pointerEvents = "none";
+    } else {
+      leftBtn.style.opacity = "0.8";
+      leftBtn.style.pointerEvents = "auto";
+    }
+
+    if (currentSlide >= totalSlides - 1) {
+      rightBtn.style.opacity = "0.5";
+      rightBtn.style.pointerEvents = "none";
+    } else {
+      rightBtn.style.opacity = "0.8";
+      rightBtn.style.pointerEvents = "auto";
+    }
+  }
+
+  // Next slide
+  rightBtn.addEventListener("click", function () {
+    if (currentSlide < totalSlides - 1) {
+      currentSlide++;
+      showSlide(currentSlide);
+    }
+  });
+
+  // Previous slide
+  leftBtn.addEventListener("click", function () {
+    if (currentSlide > 0) {
+      currentSlide--;
+      showSlide(currentSlide);
+    }
+  });
+
+  // Initialize
+  showSlide(currentSlide);
+
+  // Handle window resize
+  window.addEventListener("resize", function () {
+    // Reset to first slide on resize
+    if (window.innerWidth >= 768) {
+      // Show all cards on desktop
+      cards.forEach((card) => {
+        card.classList.add("active");
+      });
+    } else {
+      // Show only current slide on mobile
+      showSlide(currentSlide);
+    }
+  });
+});
