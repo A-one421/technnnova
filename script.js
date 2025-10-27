@@ -50,7 +50,7 @@ const products = [
     name: "Apple Airpods",
     price: 28000,
     category: "Accessories",
-    brand: "Apple",
+    brand: "Dell",
     rating: 4,
     img: "pictures/apple.jpg",
     description:
@@ -70,7 +70,7 @@ const products = [
     name: "SmartWatch",
     price: 35000,
     category: "Accessories",
-    brand: "Apple",
+    brand: "Samsung",
     rating: 4,
     img: "pictures/smartwatch.jpg",
     description:
@@ -80,7 +80,7 @@ const products = [
     name: "Game Console",
     price: 37000,
     category: "Gaming",
-    brand: "Sony",
+    brand: "HP",
     rating: 5,
     img: "pictures/game.jpg",
     description:
@@ -90,7 +90,7 @@ const products = [
     name: "Asus Vivobook",
     price: 500000,
     category: "Laptops",
-    brand: "Asus",
+    brand: "Dell",
     rating: 4,
     img: "pictures/laptop.jpg",
     description:
@@ -107,33 +107,33 @@ const products = [
       "Portable speaker with crystal clear sound, deep bass, and long battery life.",
   },
   {
-    name: "Apple Earbuds",
-    price: 42000,
-    category: "Speakers",
-    brand: "Bose",
-    rating: 3,
-    img: "pictures/apple.jpg",
-    description:
-      "Comfortable earbuds with excellent sound quality and noise isolation.",
-  },
-  {
-    name: "Iphone 16",
-    price: 42000,
-    category: "Speakers",
-    brand: "Bose",
-    rating: 3,
-    img: "pictures/iphone.jpg",
-    description: "Latest smartphone with advanced features and premium design.",
-  },
-  {
-    name: "Iphone 13",
+    name: "Techno Spark Go",
     price: 42000,
     category: "Phones",
-    brand: "Apple",
+    brand: "Bose",
     rating: 3,
-    img: "pictures/iphone.jpg",
+    img: "pictures/sparkgo.jpg",
     description:
-      "Reliable iPhone with great camera and performance at an affordable price.",
+      "Stylish smartphone with powerful performance and long-lasting battery life",
+  },
+  {
+    name: "JBL Earphone",
+    price: 42000,
+    category: "Speakers",
+    brand: "Bose",
+    rating: 3,
+    img: "pictures/jblspeaker.jpg",
+    description:
+      "Lightweight design with crystal-clear audio and noise isolation",
+  },
+  {
+    name: "Samsung smartwatch",
+    price: 42000,
+    category: "Accessories",
+    brand: "Samsung",
+    rating: 3,
+    img: "pictures/smartwatch3.jpg",
+    description: "Modern wristwatch blending style, speed, and smart features.",
   },
   {
     name: "Bluetooth Speaker",
@@ -149,7 +149,7 @@ const products = [
     name: "Samsung Airbud",
     price: 42000,
     category: "Speakers",
-    brand: "Bose",
+    brand: "Samsung",
     rating: 3,
     img: "pictures/Airbud2.jpg",
     description:
@@ -158,52 +158,48 @@ const products = [
   {
     name: "Iphone 12",
     price: 42000,
-    category: "Speakers",
-    brand: "Bose",
+    category: "Phones",
+    brand: "Iphone",
     rating: 3,
     img: "pictures/iphone12.jpg",
     description:
       "Popular iPhone model with excellent performance and camera capabilities.",
   },
   {
-    name: "Game Console",
+    name: "Apple watch",
     price: 42000,
-    category: "Speakers",
+    category: "Accessories",
     brand: "Bose",
     rating: 3,
-    img: "pictures/gameconsole.jpg",
-    description:
-      "Gaming console with immersive graphics and extensive game library.",
+    img: "pictures/smartwatch2.jpg",
+    description: "Modern wristwatch blending style, speed, and smart features.",
   },
   {
-    name: "Bluetooth Speaker",
+    name: "Galaxy z-flip",
     price: 42000,
     category: "Phones",
-    brand: "Bose",
+    brand: "Samsung",
     rating: 3,
-    img: "https://via.placeholder.com/250",
-    description:
-      "High-quality portable speaker with rich sound and durable build.",
+    img: "pictures/samsung2.jpg",
+    description: "Modern wristwatch blending style, speed, and smart feature.",
   },
   {
-    name: "Bluetooth Speaker",
+    name: "Hp laptop 360",
     price: 42000,
-    category: "Speakers",
-    brand: "Bose",
+    category: "Laptops",
+    brand: "HP",
     rating: 3,
-    img: "https://via.placeholder.com/250",
-    description:
-      "Compact wireless speaker perfect for travel and outdoor activities.",
+    img: "pictures/hplap.jpg",
+    description: "Work, create, and play — all in one reliable laptop.",
   },
   {
-    name: "Bluetooth Speaker",
+    name: "Virtual Reality",
     price: 42000,
-    category: "Speakers",
+    category: "Accessories",
     brand: "Bose",
     rating: 3,
-    img: "https://via.placeholder.com/250",
-    description:
-      "Premium speaker with advanced audio technology and sleek design.",
+    img: "pictures/virtual.jpg",
+    description: "Step into new worlds with immersive virtual reality",
   },
 ];
 
@@ -218,6 +214,9 @@ const closeModal = document.querySelector(".close");
 let currentProduct = null;
 let currentQuantity = 1;
 
+// Track loved products
+let lovedProducts = new Set();
+
 function displayProducts(list) {
   productList.innerHTML = "";
 
@@ -225,22 +224,57 @@ function displayProducts(list) {
     const card = document.createElement("div");
     card.classList.add("product-card");
     card.style.animationDelay = `${index * 0.1}s`; // staggered animation
+
+    // Check if product is loved
+    const isLoved = lovedProducts.has(prod.name);
+
     card.innerHTML = `
+      <div class="love-icon ${isLoved ? "loved" : ""}">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+      </div>
       <img src="${prod.img}" alt="${prod.name}">
       <div class="product-info">
         <h4>${prod.name}</h4>
         <p>₦${prod.price.toLocaleString()}</p>
-        <div class="rating">${"⭐".repeat(prod.rating)}</div>
+        <div class="rating">
+          ${"⭐".repeat(prod.rating)}
+          <button class="details-arrow"> <?xml version="1.0"?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg height="512px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="512px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><polygon points="160,115.4 180.7,96 352,256 180.7,416 160,396.7 310.5,256 "/></svg></button>
+        </div>
       </div>
     `;
 
-    // Add click event to show product details
+    // Add click event to show product details (clicking on card or arrow)
+    const detailsArrow = card.querySelector(".details-arrow");
+    detailsArrow.addEventListener("click", (e) => {
+      e.stopPropagation(); // Prevent triggering the card click event
+      showProductDetails(prod);
+    });
+
     card.addEventListener("click", () => {
       showProductDetails(prod);
     });
 
+    // Add love functionality
+    const loveIcon = card.querySelector(".love-icon");
+    loveIcon.addEventListener("click", (e) => {
+      e.stopPropagation(); // Prevent triggering the card click event
+      toggleLoveProduct(prod.name, loveIcon);
+    });
+
     productList.appendChild(card);
   });
+}
+
+function toggleLoveProduct(productName, loveIcon) {
+  if (lovedProducts.has(productName)) {
+    lovedProducts.delete(productName);
+    loveIcon.classList.remove("loved");
+  } else {
+    lovedProducts.add(productName);
+    loveIcon.classList.add("loved");
+  }
 }
 
 function showProductDetails(product) {
