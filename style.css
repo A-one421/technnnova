@@ -1561,7 +1561,7 @@ body {
 
 .testimonial-carousel {
   position: relative;
-  max-width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
   overflow: hidden;
 }
@@ -1569,13 +1569,14 @@ body {
 .testimonial-track {
   display: flex;
   transition: transform 0.5s ease-in-out;
-  gap: 25px;
+  gap: 20px; /* Reduced gap */
   width: 100%;
   min-height: 330px;
+  align-items: center;
 }
 
 .testimonial-slide {
-  flex: 0 0 calc(33.333% - 20px);
+  flex: 0 0 calc(33.333% - 14px); /* Adjusted calculation for reduced gap */
   padding: 20px;
   background: linear-gradient(135deg, #2d075480, #6a136c80);
   border-radius: 12px;
@@ -1586,6 +1587,7 @@ body {
   min-height: 200px;
   position: relative;
   box-sizing: border-box;
+  width: 100%;
 }
 
 .testimonial-slide:hover {
@@ -1607,6 +1609,8 @@ body {
   margin-bottom: 15px;
   flex-grow: 1;
   font-family: "lateef";
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .testimonial-footer {
@@ -1695,7 +1699,7 @@ body {
 /* ====== RESPONSIVE ====== */
 @media (max-width: 768px) {
   .testimonials {
-    padding: 25px 5%;
+    padding: 25px 4%; /* Reduced padding */
   }
 
   .testimonial-header h2 {
@@ -1710,21 +1714,21 @@ body {
 
   .testimonial-carousel {
     max-width: 100%;
-    padding: 0 10px;
+    padding: 0 8px; /* Reduced padding */
   }
 
   .testimonial-track {
-    gap: 20px;
+    gap: 15px; /* Reduced gap on mobile */
     min-height: 280px;
     width: 100%;
   }
 
   .testimonial-slide {
-    flex: 0 0 100%;
-    max-width: 100%;
-    padding: 18px;
+    flex: 0 0 calc(100% - 10px); /* Adjusted for mobile */
+    max-width: calc(100% - 10px); /* Ensure it doesn't overflow */
+    padding: 15px; /* Reduced padding */
     min-height: 220px;
-    margin: 0;
+    margin: 0 auto; /* Center the slide */
   }
 
   .carousel-btn {
@@ -1766,13 +1770,13 @@ body {
 
 @media (max-width: 480px) {
   .testimonials {
-    padding: 20px 5%;
+    padding: 20px 3%; /* Further reduced padding */
   }
 
   .testimonial-header h2 {
-    font-size: 2.5rem;
+    font-size: 3rem; /* Slightly reduced */
     line-height: 30px;
-    /* line-height: 5px; */
+    font-weight: 250;
   }
 
   .testimonial-header p {
@@ -1781,17 +1785,21 @@ body {
 
   .testimonial-carousel {
     max-width: 100%;
-    padding: 0 0px;
+    padding: 0 5px; /* Minimal padding */
     width: 100%;
   }
 
   .testimonial-track {
     min-height: 200px;
+    width: 100%;
+    gap: 10px; /* Minimal gap */
   }
 
   .testimonial-slide {
-    padding: 40px;
+    padding: 15px; /* Consistent padding */
     min-height: 150px;
+    flex: 0 0 calc(100% - 10px);
+    max-width: calc(100% - 10px);
   }
 
   .carousel-btn {
@@ -1800,12 +1808,24 @@ body {
     font-size: 0.9rem;
   }
 
+  .carousel-btn.prev {
+    left: -5px; /* Adjusted position */
+  }
+
+  .carousel-btn.next {
+    right: -5px; /* Adjusted position */
+  }
+
   .quote {
     font-size: 32px;
   }
 
   .testimonial-slide p {
     font-size: 0.9rem;
+  }
+
+  .testimonial-footer {
+    gap: 8px;
   }
 
   .testimonial-footer img {
@@ -1823,21 +1843,33 @@ body {
 }
 
 @media (max-width: 350px) {
+  .testimonials {
+    padding: 15px 2%; /* Minimal padding */
+  }
+
   .testimonial-header h2 {
-    font-size: 1rem;
+    font-size: 2rem; /* Adjusted */
   }
 
   .testimonial-header p {
     font-size: 0.9rem;
   }
 
+  .testimonial-carousel {
+    padding: 0 2px; /* Very minimal padding */
+  }
+
   .testimonial-track {
     min-height: 230px;
+    width: 100%;
+    gap: 8px; /* Minimal gap */
   }
 
   .testimonial-slide {
-    padding: 12px;
+    padding: 12px; /* Minimal padding */
     min-height: 180px;
+    flex: 0 0 calc(100% - 8px);
+    max-width: calc(100% - 8px);
   }
 
   .testimonial-slide p {
