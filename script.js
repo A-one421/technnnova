@@ -509,3 +509,187 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+
+// Testimonal section// Testimonial Carousel Functionality
+
+// Testimonial Carousel Functionality
+class TestimonialCarousel {
+  constructor() {
+    this.carousel = document.querySelector(".testimonial-carousel");
+    this.track = document.querySelector(".testimonial-track");
+    this.slides = document.querySelectorAll(".testimonial-slide");
+    this.prevBtn = document.querySelector(".carousel-btn.prev");
+    this.nextBtn = document.querySelector(".carousel-btn.next");
+    this.dotsContainer = document.querySelector(".carousel-dots");
+
+    this.currentSlide = 0;
+    this.slidesPerView = this.getSlidesPerView();
+    this.slideCount = this.slides.length;
+
+    this.init();
+  }
+
+  getSlidesPerView() {
+    return window.innerWidth <= 768 ? 1 : 3;
+  }
+
+  init() {
+    // Create dots for mobile
+    if (window.innerWidth <= 768) {
+      this.createDots();
+    }
+
+    // Event listeners
+    this.prevBtn.addEventListener("click", () => this.prevSlide());
+    this.nextBtn.addEventListener("click", () => this.nextSlide());
+
+    // Keyboard navigation
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft") this.prevSlide();
+      if (e.key === "ArrowRight") this.nextSlide();
+    });
+
+    // Touch/swipe support for mobile
+    if (window.innerWidth <= 768) {
+      this.addTouchSupport();
+    }
+
+    // Auto-play
+    this.startAutoPlay();
+
+    // Update initial state
+    this.updateCarousel();
+
+    // Handle resize
+    window.addEventListener("resize", () => this.handleResize());
+  }
+
+  createDots() {
+    this.dotsContainer.innerHTML = "";
+    for (let i = 0; i < this.slideCount; i++) {
+      const dot = document.createElement("button");
+      dot.classList.add("dot");
+      if (i === 0) dot.classList.add("active");
+      dot.addEventListener("click", () => this.goToSlide(i));
+      this.dotsContainer.appendChild(dot);
+    }
+  }
+
+  updateCarousel() {
+    if (window.innerWidth <= 768) {
+      // Mobile - single slide
+      this.track.style.transform = `translateX(-${this.currentSlide * 100}%)`;
+    } else {
+      // Desktop - show 3 slides, no transform needed
+      this.track.style.transform = "translateX(0)";
+    }
+
+    // Update dots for mobile
+    if (window.innerWidth <= 768) {
+      document.querySelectorAll(".dot").forEach((dot, index) => {
+        dot.classList.toggle("active", index === this.currentSlide);
+      });
+    }
+
+    // Update button states
+    this.updateButtonStates();
+  }
+
+  updateButtonStates() {
+    if (window.innerWidth <= 768) {
+      // Mobile - single slide navigation
+      this.prevBtn.style.opacity = this.currentSlide === 0 ? "0.5" : "1";
+      this.nextBtn.style.opacity =
+        this.currentSlide === this.slideCount - 1 ? "0.5" : "1";
+    } else {
+      // Desktop - hide buttons since we show all 3
+      this.prevBtn.style.display = "none";
+      this.nextBtn.style.display = "none";
+    }
+  }
+
+  nextSlide() {
+    if (window.innerWidth <= 768) {
+      this.currentSlide = (this.currentSlide + 1) % this.slideCount;
+    }
+    this.updateCarousel();
+  }
+
+  prevSlide() {
+    if (window.innerWidth <= 768) {
+      this.currentSlide =
+        this.currentSlide === 0 ? this.slideCount - 1 : this.currentSlide - 1;
+    }
+    this.updateCarousel();
+  }
+
+  goToSlide(index) {
+    if (window.innerWidth <= 768) {
+      this.currentSlide = index;
+      this.updateCarousel();
+    }
+  }
+
+  addTouchSupport() {
+    let startX = 0;
+    let currentX = 0;
+
+    this.track.addEventListener("touchstart", (e) => {
+      startX = e.touches[0].clientX;
+    });
+
+    this.track.addEventListener("touchmove", (e) => {
+      currentX = e.touches[0].clientX;
+    });
+
+    this.track.addEventListener("touchend", () => {
+      const diff = startX - currentX;
+      const swipeThreshold = 50;
+
+      if (Math.abs(diff) > swipeThreshold) {
+        if (diff > 0) {
+          this.nextSlide();
+        } else {
+          this.prevSlide();
+        }
+      }
+    });
+  }
+
+  startAutoPlay() {
+    // Auto-advance every 5 seconds (mobile only)
+    setInterval(() => {
+      if (window.innerWidth <= 768) {
+        this.nextSlide();
+      }
+    }, 5000);
+  }
+
+  handleResize() {
+    const newSlidesPerView = this.getSlidesPerView();
+    if (newSlidesPerView !== this.slidesPerView) {
+      this.slidesPerView = newSlidesPerView;
+      this.currentSlide = 0;
+
+      if (newSlidesPerView === 1) {
+        // Mobile - show dots and buttons
+        this.createDots();
+        this.prevBtn.style.display = "block";
+        this.nextBtn.style.display = "block";
+        this.addTouchSupport();
+      } else {
+        // Desktop - hide dots and buttons
+        this.dotsContainer.innerHTML = "";
+        this.prevBtn.style.display = "none";
+        this.nextBtn.style.display = "none";
+      }
+
+      this.updateCarousel();
+    }
+  }
+}
+
+// Initialize carousel when DOM is loaded
+document.addEventListener("DOMContentLoaded", () => {
+  new TestimonialCarousel();
+});
