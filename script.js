@@ -281,6 +281,12 @@ function showProductDetails(product) {
   currentProduct = product;
   currentQuantity = 1;
 
+  // Hide any existing success message
+  const successMessage = document.getElementById("successMessage");
+  if (successMessage) {
+    successMessage.style.display = "none";
+  }
+
   modalBody.innerHTML = `
     <img src="${product.img}" alt="${product.name}" class="modal-product-image">
     <div class="modal-product-info">
@@ -324,16 +330,34 @@ function showProductDetails(product) {
   });
 
   addToCartBtn.addEventListener("click", () => {
-    alert(
-      `Added ${currentQuantity} ${product.name}(s) to cart! Total: ₦${(
-        product.price * currentQuantity
-      ).toLocaleString()}`
-    );
-    closeModalFunc();
+    shoppingCart.addToCart(product, currentQuantity);
+
+    // Show success message
+    showSuccessMessage(`Added ${currentQuantity} ${product.name}(s) to cart!`);
+
+    // Optional: Close modal after a delay
+    setTimeout(() => {
+      closeModalFunc();
+    }, 1500);
   });
 
   // Show the modal
   modal.style.display = "block";
+}
+
+// NEW FUNCTION: Show success message
+function showSuccessMessage(message) {
+  const successMessage = document.getElementById("successMessage");
+
+  if (successMessage) {
+    successMessage.textContent = message;
+    successMessage.style.display = "block";
+
+    // Auto-hide after 3 seconds
+    setTimeout(() => {
+      successMessage.style.display = "none";
+    }, 3000);
+  }
 }
 
 function updateAddToCartButton(button) {
@@ -344,6 +368,13 @@ function updateAddToCartButton(button) {
 
 function closeModalFunc() {
   modal.style.display = "none";
+
+  // Reset success message
+  const successMessage = document.getElementById("successMessage");
+  if (successMessage) {
+    successMessage.style.display = "none";
+    successMessage.textContent = "";
+  }
 }
 
 // Close modal when clicking the X
@@ -400,6 +431,7 @@ document
 
 // Initial load
 displayProducts(products);
+
 // why-section.js
 // Simple scroll reveal using IntersectionObserver
 (function () {
@@ -509,8 +541,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
-
-// Testimonal section// Testimonial Carousel Functionality
 
 // Testimonial Carousel Functionality
 class TestimonialCarousel {
@@ -689,7 +719,223 @@ class TestimonialCarousel {
   }
 }
 
-// Initialize carousel when DOM is loaded
+// Cart functionality
+class ShoppingCart {
+  constructor() {
+    this.cart = JSON.parse(localStorage.getItem("cart")) || [];
+    this.cartIcon = document.getElementById("cartIcon");
+    this.cartSidebar = document.getElementById("cartSidebar");
+    this.closeCart = document.getElementById("closeCart");
+    this.cartItems = document.getElementById("cartItems");
+    this.cartTotal = document.getElementById("cartTotal");
+    this.cartCount = document.querySelector(".cart-count");
+    this.orderNowBtn = document.getElementById("orderNowBtn");
+    this.cartOverlay = document.createElement("div");
+
+    this.init();
+  }
+
+  init() {
+    // Create overlay
+    this.cartOverlay.className = "cart-overlay";
+    document.body.appendChild(this.cartOverlay);
+
+    // Event listeners
+    this.cartIcon.addEventListener("click", () => this.toggleCart());
+    this.closeCart.addEventListener("click", () => this.closeCartSidebar());
+    this.cartOverlay.addEventListener("click", () => this.closeCartSidebar());
+    this.orderNowBtn.addEventListener("click", () => this.orderNow());
+
+    // Update cart display
+    this.updateCartDisplay();
+  }
+
+  addToCart(product, quantity = 1) {
+    const existingItem = this.cart.find((item) => item.name === product.name);
+
+    if (existingItem) {
+      existingItem.quantity += quantity;
+    } else {
+      this.cart.push({
+        name: product.name,
+        price: product.price,
+        image: product.img,
+        quantity: quantity,
+      });
+    }
+
+    this.saveCart();
+    this.updateCartDisplay();
+    this.showAddToCartAnimation();
+  }
+
+  removeFromCart(productName) {
+    this.cart = this.cart.filter((item) => item.name !== productName);
+    this.saveCart();
+    this.updateCartDisplay();
+  }
+
+  updateQuantity(productName, newQuantity) {
+    const item = this.cart.find((item) => item.name === productName);
+    if (item) {
+      if (newQuantity <= 0) {
+        this.removeFromCart(productName);
+      } else {
+        item.quantity = newQuantity;
+        this.saveCart();
+        this.updateCartDisplay();
+      }
+    }
+  }
+
+  saveCart() {
+    localStorage.setItem("cart", JSON.stringify(this.cart));
+  }
+
+  updateCartDisplay() {
+    // Update cart count
+    const totalItems = this.cart.reduce((sum, item) => sum + item.quantity, 0);
+    this.cartCount.textContent = totalItems;
+
+    // Update cart items
+    this.cartItems.innerHTML = "";
+
+    if (this.cart.length === 0) {
+      this.cartItems.innerHTML =
+        '<div class="empty-cart">Your cart is empty</div>';
+      this.orderNowBtn.disabled = true;
+    } else {
+      this.orderNowBtn.disabled = false;
+      this.cart.forEach((item) => {
+        const cartItemElement = document.createElement("div");
+        cartItemElement.className = "cart-item";
+        cartItemElement.innerHTML = `
+          <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+          <div class="cart-item-details">
+            <div class="cart-item-name">${item.name}</div>
+            <div class="cart-item-price">₦${item.price.toLocaleString()}</div>
+            <div class="cart-item-quantity">
+              <button class="quantity-btn minus" data-product="${
+                item.name
+              }">-</button>
+              <span>${item.quantity}</span>
+              <button class="quantity-btn plus" data-product="${
+                item.name
+              }">+</button>
+            </div>
+            <button class="remove-item" data-product="${
+              item.name
+            }">Remove</button>
+          </div>
+        `;
+        this.cartItems.appendChild(cartItemElement);
+      });
+
+      // Add event listeners to quantity buttons
+      this.cartItems.querySelectorAll(".quantity-btn.minus").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          const productName = e.target.dataset.product;
+          const item = this.cart.find((item) => item.name === productName);
+          if (item) {
+            this.updateQuantity(productName, item.quantity - 1);
+          }
+        });
+      });
+
+      this.cartItems.querySelectorAll(".quantity-btn.plus").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          const productName = e.target.dataset.product;
+          const item = this.cart.find((item) => item.name === productName);
+          if (item) {
+            this.updateQuantity(productName, item.quantity + 1);
+          }
+        });
+      });
+
+      this.cartItems.querySelectorAll(".remove-item").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          const productName = e.target.dataset.product;
+          this.removeFromCart(productName);
+        });
+      });
+    }
+
+    // Update total
+    const total = this.cart.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0
+    );
+    this.cartTotal.textContent = total.toLocaleString();
+  }
+
+  toggleCart() {
+    this.cartSidebar.classList.toggle("active");
+    this.cartOverlay.classList.toggle("active");
+    document.body.style.overflow = this.cartSidebar.classList.contains("active")
+      ? "hidden"
+      : "";
+  }
+
+  closeCartSidebar() {
+    this.cartSidebar.classList.remove("active");
+    this.cartOverlay.classList.remove("active");
+    document.body.style.overflow = "";
+  }
+
+  showAddToCartAnimation() {
+    this.cartIcon.style.transform = "scale(1.3)";
+    setTimeout(() => {
+      this.cartIcon.style.transform = "scale(1)";
+    }, 300);
+  }
+
+  orderNow() {
+    if (this.cart.length === 0) return;
+
+    // Create order message
+    const itemsList = this.cart
+      .map(
+        (item) =>
+          `${item.quantity}x ${item.name} - ₦${(
+            item.price * item.quantity
+          ).toLocaleString()}`
+      )
+      .join("%0A");
+
+    const total = this.cart.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0
+    );
+
+    const message = `Hi, I want to order:%0A%0A${itemsList}%0A%0ATotal: ₦${total.toLocaleString()}`;
+
+    // Replace with your actual WhatsApp number
+    const whatsappNumber = "2348166966131";
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
+
+    // Open WhatsApp in new tab
+    window.open(whatsappUrl, "_blank");
+
+    // Close cart sidebar
+    this.closeCartSidebar();
+  }
+
+  getCartItems() {
+    return this.cart;
+  }
+
+  clearCart() {
+    this.cart = [];
+    this.saveCart();
+    this.updateCartDisplay();
+  }
+}
+
+// Initialize everything when DOM is loaded
 document.addEventListener("DOMContentLoaded", () => {
+  // Initialize cart
+  shoppingCart = new ShoppingCart();
+
+  // Your existing initialization code...
   new TestimonialCarousel();
 });
