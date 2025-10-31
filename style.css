@@ -1979,6 +1979,8 @@ body {
   }
 }
 
+/* ====== CART STYLES - COMPLETELY REVISED ====== */
+/* Cart Icon Styles */ /* ====== CART STYLES - MOBILE FIXES ONLY ====== */
 /* Cart Icon Styles */
 .cart-icon-container {
   position: relative;
@@ -1986,7 +1988,7 @@ body {
 }
 
 .cart-icon {
-  width: 60px; /* replaces font-size for SVG scaling */
+  width: 60px;
   height: 60px;
   cursor: pointer;
   position: relative;
@@ -1994,11 +1996,11 @@ body {
   border-radius: 50%;
   transition: all 0.3s ease;
   -webkit-tap-highlight-color: transparent;
-  color: #ffffff; /* color for SVG (since fill=currentColor) */
+  color: #ffffff;
 }
 
 .cart-icon:hover {
-  /* background: #f2f2f2; optional hover effect  */
+  background: rgba(207, 36, 210, 0.1);
 }
 
 .cart-icon svg {
@@ -2022,14 +2024,18 @@ body {
   font-weight: bold;
 }
 
-/* Cart Sidebar Styles */
+/* Cart Sidebar Styles - DESKTOP (unchanged) */
 .cart-sidebar {
   position: fixed;
   top: 0;
   right: -400px;
   width: 350px;
   height: 100vh;
-  /* background: linear-gradient(135deg, #1a0333, #2a0944); */
+  background: linear-gradient(
+    135deg,
+    rgba(45, 7, 84, 1),
+    rgba(106, 19, 108, 1)
+  );
   box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
   transition: right 0.3s ease;
   z-index: 1001;
@@ -2190,7 +2196,6 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  /* background: rgba(0, 0, 0, 0.5);  */
   background: rgba(0, 0, 0, 0.75);
   z-index: 1000;
   display: none;
@@ -2208,28 +2213,131 @@ body {
   font-size: 1.1rem;
 }
 
-/* Mobile responsiveness */
+/* ====== MOBILE CART FIXES ONLY ====== */
 @media (max-width: 768px) {
   .cart-sidebar {
     width: 100%;
-    right: -100%;
+    right: -100%; /* Full width off-screen */
+  }
+
+  .cart-sidebar.active {
+    right: 0; /* Slide in from right */
+  }
+
+  .cart-header {
+    padding: 15px 20px;
+    background: rgba(45, 7, 84, 0.95);
+  }
+
+  .cart-header h3 {
+    font-size: 1.3rem;
+  }
+
+  .cart-items {
+    padding: 10px 15px;
+    padding-bottom: 120px; /* Space for fixed footer */
+  }
+
+  /* Fixed footer only when cart is active */
+  .cart-sidebar.active .cart-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 15px 20px;
+    background: rgba(45, 7, 84, 0.98);
+    border-top: 2px solid rgba(207, 36, 210, 0.3);
+    z-index: 1002;
+  }
+
+  .cart-total {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+
+  .order-now-btn {
+    padding: 12px;
+    font-size: 1rem;
+  }
+
+  .cart-item {
+    padding: 12px;
+    margin-bottom: 8px;
+    background: rgba(255, 255, 255, 0.08);
+  }
+}
+
+@media (max-width: 480px) {
+  .cart-header {
+    padding: 12px 15px;
+  }
+
+  .cart-header h3 {
+    font-size: 1.2rem;
+  }
+
+  .cart-items {
+    padding: 8px 10px;
+    padding-bottom: 110px; /* Adjusted space for smaller screens */
+  }
+
+  .cart-sidebar.active .cart-footer {
+    padding: 12px 15px;
+  }
+
+  .cart-total {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+  }
+
+  .order-now-btn {
+    padding: 10px;
+    font-size: 0.95rem;
+  }
+
+  .cart-item {
+    padding: 10px;
+    margin-bottom: 6px;
+  }
+
+  .cart-item-image {
+    width: 50px;
+    height: 50px;
+  }
+
+  .cart-item-name {
+    font-size: 0.85rem;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 360px) {
+  .cart-items {
+    padding-bottom: 100px;
+  }
+
+  .cart-sidebar.active .cart-footer {
+    padding: 10px 12px;
+  }
+
+  .cart-total {
+    font-size: 1rem;
+  }
+
+  .order-now-btn {
+    padding: 8px;
+    font-size: 0.9rem;
   }
 
   .cart-item {
     flex-direction: column;
     text-align: center;
+    gap: 8px;
   }
 
   .cart-item-details {
     width: 100%;
   }
-}
-
-/* Update auth-btns to include cart icon */
-.auth-btns {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
 }
 
 /* Success Message Styles */
@@ -2257,155 +2365,9 @@ body {
   }
 }
 
-/* Adjust modal content for success message */
-.modal-content {
-  position: relative;
-}
-
-/* Make sure modal body adjusts when success message is shown */
-.modal-body {
-  transition: margin-top 0.3s ease;
-}
-
-/* ===== CART RESPONSIVE FIXES ===== */
-@media (max-height: 700px) {
-  .cart-sidebar {
-    height: 100vh;
-    overflow-y: auto;
-  }
-
-  .cart-header {
-    padding: 15px 20px;
-    position: sticky;
-    top: 0;
-    background: rgba(45, 7, 84, 0.95);
-    z-index: 10;
-  }
-
-  .cart-items {
-    flex: 1;
-    min-height: auto;
-    padding: 10px 15px;
-  }
-
-  .cart-item {
-    padding: 8px;
-    margin-bottom: 8px;
-  }
-
-  .cart-footer {
-    position: sticky;
-    bottom: 0;
-    background: rgba(45, 7, 84, 0.95);
-    padding: 15px 20px;
-    border-top: 1px solid #333;
-  }
-
-  .order-now-btn {
-    padding: 10px;
-    font-size: 0.9rem;
-    position: relative;
-    z-index: 10;
-  }
-}
-
-@media (max-height: 500px) {
-  .cart-sidebar {
-    height: 100vh;
-  }
-
-  .cart-header {
-    padding: 10px 15px;
-  }
-
-  .cart-header h3 {
-    font-size: 1.2rem;
-  }
-
-  .cart-items {
-    padding: 8px 10px;
-    max-height: calc(100vh - 150px);
-    overflow-y: auto;
-  }
-
-  .cart-item {
-    padding: 6px;
-    margin-bottom: 6px;
-  }
-
-  .cart-item-image {
-    width: 50px;
-    height: 50px;
-  }
-
-  .cart-item-name {
-    font-size: 0.8rem;
-  }
-
-  .cart-item-price {
-    font-size: 0.75rem;
-  }
-
-  .cart-footer {
-    padding: 10px 15px;
-  }
-
-  .cart-total {
-    font-size: 1rem;
-    margin-bottom: 10px;
-  }
-
-  .order-now-btn {
-    padding: 8px;
-    font-size: 0.85rem;
-  }
-}
-
-/* Extra small height devices */
-@media (max-height: 400px) {
-  .cart-sidebar {
-    height: 100vh;
-  }
-
-  .cart-items {
-    max-height: calc(100vh - 120px);
-  }
-
-  .cart-item {
-    flex-direction: row;
-    align-items: center;
-  }
-
-  .cart-item-details {
-    flex: 1;
-  }
-
-  .order-now-btn {
-    padding: 6px;
-    font-size: 0.8rem;
-    min-height: 36px;
-  }
-}
-
-/* Ensure cart overlay covers full screen on all devices */
-.cart-overlay.active {
-  display: block;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1000;
-}
-
-/* Make cart sidebar scrollable on all devices */
-.cart-sidebar {
-  overflow-y: auto;
-}
-
-/* Keep order button always visible in footer */
-.cart-footer {
-  background: rgba(45, 7, 84, 0.95);
-  border-top: 1px solid #333;
-  margin-top: auto;
+/* Update auth-btns to include cart icon */
+.auth-btns {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
 }
