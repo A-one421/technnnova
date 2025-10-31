@@ -2266,3 +2266,146 @@ body {
 .modal-body {
   transition: margin-top 0.3s ease;
 }
+
+/* ===== CART RESPONSIVE FIXES ===== */
+@media (max-height: 700px) {
+  .cart-sidebar {
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+  .cart-header {
+    padding: 15px 20px;
+    position: sticky;
+    top: 0;
+    background: rgba(45, 7, 84, 0.95);
+    z-index: 10;
+  }
+
+  .cart-items {
+    flex: 1;
+    min-height: auto;
+    padding: 10px 15px;
+  }
+
+  .cart-item {
+    padding: 8px;
+    margin-bottom: 8px;
+  }
+
+  .cart-footer {
+    position: sticky;
+    bottom: 0;
+    background: rgba(45, 7, 84, 0.95);
+    padding: 15px 20px;
+    border-top: 1px solid #333;
+  }
+
+  .order-now-btn {
+    padding: 10px;
+    font-size: 0.9rem;
+    position: relative;
+    z-index: 10;
+  }
+}
+
+@media (max-height: 500px) {
+  .cart-sidebar {
+    height: 100vh;
+  }
+
+  .cart-header {
+    padding: 10px 15px;
+  }
+
+  .cart-header h3 {
+    font-size: 1.2rem;
+  }
+
+  .cart-items {
+    padding: 8px 10px;
+    max-height: calc(100vh - 150px);
+    overflow-y: auto;
+  }
+
+  .cart-item {
+    padding: 6px;
+    margin-bottom: 6px;
+  }
+
+  .cart-item-image {
+    width: 50px;
+    height: 50px;
+  }
+
+  .cart-item-name {
+    font-size: 0.8rem;
+  }
+
+  .cart-item-price {
+    font-size: 0.75rem;
+  }
+
+  .cart-footer {
+    padding: 10px 15px;
+  }
+
+  .cart-total {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+
+  .order-now-btn {
+    padding: 8px;
+    font-size: 0.85rem;
+  }
+}
+
+/* Extra small height devices */
+@media (max-height: 400px) {
+  .cart-sidebar {
+    height: 100vh;
+  }
+
+  .cart-items {
+    max-height: calc(100vh - 120px);
+  }
+
+  .cart-item {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .cart-item-details {
+    flex: 1;
+  }
+
+  .order-now-btn {
+    padding: 6px;
+    font-size: 0.8rem;
+    min-height: 36px;
+  }
+}
+
+/* Ensure cart overlay covers full screen on all devices */
+.cart-overlay.active {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+}
+
+/* Make cart sidebar scrollable on all devices */
+.cart-sidebar {
+  overflow-y: auto;
+}
+
+/* Keep order button always visible in footer */
+.cart-footer {
+  background: rgba(45, 7, 84, 0.95);
+  border-top: 1px solid #333;
+  margin-top: auto;
+}
