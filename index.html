@@ -5,6 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TechhNova</title>
     <link rel="stylesheet" href="style.css" />
+    <style>
+      /* Success Message Styles */
+      .success-message {
+        background: linear-gradient(135deg, #4caf50, #45a049);
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        margin: 10px 15px;
+        text-align: center;
+        font-weight: 500;
+        animation: slideDown 0.3s ease-out;
+        box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+        border-left: 4px solid #2e7d32;
+        display: none;
+      }
+
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
   </head>
   <body>
     <!-- Navbar -->
@@ -21,8 +48,29 @@
         </ul>
 
         <div class="auth-btns">
-          <button class="login">Log in</button>
-          <button class="register">Register</button>
+          <!-- Add this inside the navbar, after the auth-buttons div -->
+          <div class="cart-icon-container">
+            <div class="cart-icon" id="cartIcon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="size-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
+                />
+              </svg>
+
+              <span class="cart-count">0</span>
+            </div>
+          </div>
+          <!-- <button class="login">Log in</button> -->
+          <!-- <button class="register">Register</button> -->
           <div class="menu-toggle" id="menuToggle">
             <span></span>
             <span></span>
@@ -164,6 +212,8 @@
     <div id="productModal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
+        <!-- SUCCESS MESSAGE ADDED HERE -->
+        <div class="success-message" id="successMessage"></div>
         <div class="modal-body" id="modalBody">
           <!-- Product details will be inserted here -->
         </div>
@@ -304,11 +354,11 @@
           <div class="testimonial-slide">
             <span class="quote">"</span>
             <p>
-              I ordered the SmartPro Wireless Earbuds from this site, and I’m
+              I ordered the SmartPro Wireless Earbuds from this site, and I'm
               beyond impressed! The sound quality is crystal clear, battery life
               is amazing, and the delivery was super fast. The customer support
               team was also really helpful when I had a question about pairing.
-              I’ll definitely be shopping here again!
+              I'll definitely be shopping here again!
             </p>
             <div class="testimonial-footer">
               <img src="pictures/img2.jpg" alt="Sarah Johnson" />
@@ -322,7 +372,7 @@
           <div class="testimonial-slide">
             <span class="quote">"</span>
             <p>
-              I’m really impressed by the quality of gadgets I’ve bought here.
+              I'm really impressed by the quality of gadgets I've bought here.
               The prices are fair, and the promo deals they offer sometimes make
               it even better. My headphones sound amazing, and the build feels
               premium. Everything arrived in perfect condition and
@@ -343,8 +393,8 @@
             <p>
               I had a small issue with my order, but the support team handled it
               so well. They responded quickly, offered clear solutions, and
-              followed up to make sure everything was fine. It’s rare to find
-              customer service this good in online stores. I’ll definitely keep
+              followed up to make sure everything was fine. It's rare to find
+              customer service this good in online stores. I'll definitely keep
               shopping here.
             </p>
             <div class="testimonial-footer">
@@ -360,6 +410,20 @@
         <div class="carousel-dots"></div>
       </div>
     </section>
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+      <div class="cart-header">
+        <h3>Your Cart</h3>
+        <button class="close-cart" id="closeCart">&times;</button>
+      </div>
+      <div class="cart-items" id="cartItems">
+        <!-- Cart items will be added here dynamically -->
+      </div>
+      <div class="cart-footer">
+        <div class="cart-total">Total: ₦<span id="cartTotal">0</span></div>
+        <button class="order-now-btn" id="orderNowBtn">Order Now</button>
+      </div>
+    </div>
     <script src="script.js"></script>
   </body>
 </html>
