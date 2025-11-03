@@ -939,3 +939,20 @@ document.addEventListener("DOMContentLoaded", () => {
   // Your existing initialization code...
   new TestimonialCarousel();
 });
+
+// Promo section
+// Add a subtle fade-in animation when the section scrolls into view
+document.addEventListener("DOMContentLoaded", () => {
+  const promoSection = document.querySelector(".promo-section");
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        promoSection.classList.add("visible");
+      }
+    });
+  });
+
+  observer.observe(promoSection);
+});
+
