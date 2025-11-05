@@ -2956,3 +2956,550 @@ body {
     height: 40px;
   }
 }
+
+/* Add */
+/* Pagination styles */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.pagination button {
+  background: #2a0944;
+  border: none;
+  color: #fff;
+  padding: 0.45rem 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+.pagination .active {
+  background: #6a0dad;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Product grid for 4 items per row */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 1024px) {
+  .products-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile Product Grid - 3 items per row, 6 per page */
+@media (max-width: 768px) {
+  .products-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .product-card {
+    padding: 0.8rem;
+    min-height: 200px;
+  }
+
+  .product-card img {
+    max-height: 100px;
+  }
+
+  .product-info h4 {
+    font-size: 0.8rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .product-info p {
+    font-size: 0.75rem;
+  }
+
+  .rating {
+    font-size: 0.7rem;
+  }
+
+  .love-icon {
+    width: 20px;
+    height: 20px;
+    top: 8px;
+    right: 8px;
+  }
+
+  .details-arrow {
+    width: 18px;
+    height: 18px;
+    font-size: 0.8rem;
+  }
+}
+
+/* Small mobile screens */
+@media (max-width: 480px) {
+  .products-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.8rem;
+  }
+
+  .product-card {
+    padding: 0.6rem;
+    min-height: 180px;
+  }
+
+  .product-card img {
+    max-height: 80px;
+  }
+
+  .product-info h4 {
+    font-size: 0.7rem;
+  }
+
+  .product-info p {
+    font-size: 0.65rem;
+  }
+
+  .rating {
+    font-size: 0.6rem;
+  }
+}
+
+/* Very small screens - adjust to 2 columns if needed */
+@media (max-width: 360px) {
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Modal responsive improvements for mobile */
+@media (max-width: 768px) {
+  .modal-content {
+    width: 90%;
+    margin: 10% auto;
+    padding: 15px;
+  }
+
+  .modal-product-info h3 {
+    font-size: 1.3rem;
+  }
+
+  .modal-product-info .price {
+    font-size: 1.1rem;
+  }
+
+  .quantity-btn {
+    width: 30px;
+    height: 30px;
+  }
+
+  .add-to-cart {
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
+}
+
+/* Filter sidebar mobile improvements */
+@media (max-width: 768px) {
+  .filter-sidebar {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.8rem;
+    padding: 1rem;
+  }
+
+  .filter-section {
+    padding: 0.8rem;
+  }
+
+  .filter-section h3 {
+    font-size: 1.1rem;
+  }
+
+  .filter-section li {
+    font-size: 0.9rem;
+  }
+}
+
+/* Footer setion*/
+:root {
+  --bg: #16051a; /* deep purple */
+  --panel: rgba(106, 19, 108, 0.08); /* subtle panel (if needed) */
+  --accent: #6a136c; /* purple accent */
+  --muted: rgba(255, 255, 255, 0.65);
+  --text: rgba(255, 255, 255, 0.92);
+  --input-bg: rgba(255, 255, 255, 0.03);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.site-footer {
+  background: linear-gradient(180deg, #0f0310 0%, var(--bg) 100%);
+  color: var(--text);
+  padding: 48px 16px 26px;
+  border-top: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+  padding: 0 20px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+/* footer columns */
+.footer-col {
+  min-width: 180px;
+  flex: 1 1 200px;
+}
+
+.brand .logo {
+  font-family: "Lora", serif;
+  font-weight: 700;
+  margin: 0 0 14px;
+  color: var(--text);
+  font-size: 20px;
+}
+
+.brand-desc {
+  color: var(--muted);
+  line-height: 1.8;
+  font-size: 13px;
+  margin: 0;
+}
+
+/* headings */
+.footer-col h3 {
+  font-size: 15px;
+  margin: 0 0 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* lists */
+.footer-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.footer-col li {
+  margin: 10px 0;
+}
+.footer-col a {
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 14px;
+}
+.footer-col a:hover {
+  color: var(--text);
+  text-decoration: underline;
+}
+
+/* newsletter */
+.newsletter .subtext {
+  color: var(--muted);
+  font-size: 13px;
+  margin: 6px 0 12px;
+}
+
+.subscribe-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.subscribe-row input[type="email"] {
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  background: var(--input-bg);
+  color: var(--text);
+  outline: none;
+  font-size: 14px;
+}
+.subscribe-row input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.subscribe-row button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  cursor: pointer;
+  flex: 0 0 40px;
+  transition: transform 0.14s ease, background 0.14s ease;
+}
+.subscribe-row button:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.subscribe-row button svg {
+  display: block;
+  stroke: #fff;
+  fill: none;
+  color: #fff;
+}
+
+/* socials */
+.socials {
+  margin-top: 6px;
+  display: flex;
+  gap: 12px;
+}
+.social {
+  width: 36px;
+  height: 36px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(106, 19, 108, 0.14);
+  color: var(--text);
+  text-decoration: none;
+  transition: transform 0.12s ease, background 0.12s ease;
+}
+.social:hover {
+  transform: translateY(-3px);
+  background: rgba(106, 19, 108, 0.24);
+}
+
+/* footer bottom */
+.footer-bottom {
+  max-width: 1200px;
+  margin: 18px auto 0;
+  padding: 0 20px;
+  color: var(--muted);
+  font-size: 13px;
+  border-top: 1px solid rgba(255, 255, 255, 0.02);
+  padding-top: 16px;
+}
+
+/* responsive rules */
+@media (max-width: 880px) {
+  .container {
+    gap: 22px;
+  }
+  .brand-desc {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 680px) {
+  .container {
+    flex-direction: column;
+    gap: 26px;
+    align-items: stretch;
+  }
+  .footer-col {
+    flex: 1 1 100%;
+  }
+  .subscribe-row {
+    width: 100%;
+  }
+  .subscribe-row button {
+    flex: 0 0 44px;
+    height: 44px;
+    width: 44px;
+  }
+}
+
+/* ====== FOOTER MOBILE RESPONSIVE FIXES ====== */
+@media (max-width: 768px) {
+  .site-footer {
+    padding: 30px 16px 20px;
+  }
+
+  .container {
+    flex-direction: column;
+    gap: 20px;
+    padding: 0 10px;
+  }
+
+  /* Arrange Technnova details and quick links side by side */
+  .footer-col:first-child,
+  .footer-col:nth-child(2) {
+    flex: 1 1 calc(50% - 10px);
+    min-width: unset;
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  /* Ensure proper spacing between the two columns */
+  .footer-col:first-child {
+    padding-right: 15px;
+  }
+
+  .footer-col:nth-child(2) {
+    padding-left: 15px;
+  }
+
+  /* Stack newsletter and social below */
+  .footer-col:nth-child(3),
+  .footer-col:nth-child(4) {
+    flex: 1 1 100%;
+    width: 100%;
+    clear: both;
+    margin-top: 20px;
+  }
+
+  /* Adjust newsletter for better mobile fit */
+  .newsletter .subtext {
+    font-size: 14px;
+    margin-bottom: 15px;
+  }
+
+  .subscribe-row {
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .subscribe-row input[type="email"] {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 16px; /* Better for mobile touch */
+  }
+
+  .subscribe-row button {
+    width: 100%;
+    height: 48px;
+    border-radius: 24px;
+    flex: 0 0 auto;
+  }
+
+  /* Center social icons */
+  .socials {
+    justify-content: center;
+    margin-top: 15px;
+  }
+
+  .social {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-footer {
+    padding: 25px 12px 15px;
+  }
+
+  /* Stack all sections vertically on very small screens */
+  .footer-col:first-child,
+  .footer-col:nth-child(2) {
+    flex: 1 1 100%;
+    padding: 0;
+    margin-bottom: 20px;
+  }
+
+  .brand .logo {
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .brand-desc {
+    text-align: center;
+    font-size: 14px;
+  }
+
+  .footer-col h3 {
+    text-align: center;
+    font-size: 16px;
+  }
+
+  .footer-col ul {
+    text-align: center;
+  }
+
+  .newsletter {
+    text-align: center;
+  }
+
+  .subscribe-row input[type="email"] {
+    padding: 12px 16px;
+  }
+
+  .subscribe-row button {
+    height: 44px;
+  }
+}
+
+/* Remove root color variables and use normal page colors */
+.site-footer {
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a0029 100%);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.brand-desc,
+.footer-col a,
+.newsletter .subtext,
+.footer-bottom {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.footer-col a:hover {
+  color: #cf24d2; /* Use your site's accent color */
+  text-decoration: none;
+}
+
+.subscribe-row input[type="email"] {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.subscribe-row button {
+  background: linear-gradient(135deg, #cf24d2, #b132f0);
+  color: #fff;
+}
+
+.subscribe-row button:hover {
+  background: linear-gradient(135deg, #b132f0, #cf24d2);
+  transform: translateY(-2px);
+}
+
+.social {
+  background: rgba(207, 36, 210, 0.2);
+  color: #fff;
+}
+
+.social:hover {
+  background: rgba(207, 36, 210, 0.4);
+  transform: translateY(-3px);
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
