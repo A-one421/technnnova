@@ -41,10 +41,10 @@
 
         <ul class="nav-links" id="navLinks">
           <li><a href="#" class="active">Home</a></li>
-          <li><a href="#">Shop</a></li>
+          <li><a href="#products-section">Shop</a></li>
           <li><a href="#">Categories</a></li>
           <li><a href="#">Feature</a></li>
-          <li><a href="#">About Us</a></li>
+          <li><a href="#why-section">About Us</a></li>
         </ul>
 
         <div class="auth-btns">
@@ -88,7 +88,7 @@
           Explore The Latest Gadgets And Accessories Designed To Make Life
           Faster, Easier And More Connected.
         </p>
-        <a href="#" class="cta-btn">Explore Now →</a>
+        <a href="#products-section" class="cta-btn">Explore Now →</a>
 
         <div class="rating">
           <div class="ratingimg">
@@ -115,15 +115,17 @@
     </section>
 
     <!-- price and goods available-->
-    <section class="tech-collection">
+    <section class="tech-collection" id="products-section">
       <div class="section-header">
         <h2>Discover Our Latest Tech Collections</h2>
         <p>Find The Right Gadgets For Work, Play And Everything In Between</p>
         <div class="tabs">
-          <button class="tab active">New Arrivals</button>
-          <button class="tab">Best Sellers</button>
-          <button class="tab">Exclusive Deals</button>
-          <button class="tab">Trending Now</button>
+          <button class="tab active" data-category="all">All Products</button>
+          <button class="tab" data-category="best-sellers">Best Sellers</button>
+          <button class="tab" data-category="exclusive-deals">
+            Exclusive Deals
+          </button>
+          <button class="tab" data-category="trending-now">Trending Now</button>
         </div>
       </div>
 
@@ -202,8 +204,9 @@
 
       <div class="pagination">
         <button class="prev">‹</button>
-        <button class="page active">1</button>
-        <button class="page">2</button>
+        <button class="page active" data-page="1">1</button>
+        <button class="page" data-page="2">2</button>
+        <button class="page" data-page="3">3</button>
         <button class="next">›</button>
       </div>
     </section>
@@ -221,7 +224,7 @@
     </div>
 
     <!-- NEw sections, why -->
-    <section class="why-wrap" aria-labelledby="why-heading">
+    <section class="why-wrap" aria-labelledby="why-heading" id="why-section">
       <div class="why-title">
         <h2 id="why-heading">
           Why Choose Techh<span class="accent">Nova</span>?
@@ -528,6 +531,112 @@
         </div>
       </div>
     </footer> -->
+
+    <!-- other page content -->
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-col brand">
+          <h2 class="logo">TechhNova</h2>
+          <p class="brand-desc">
+            The Latest Gadgets And Accessories<br />
+            Designed To Make Life Faster, Easier,<br />
+            Accessible And More Connected
+          </p>
+        </div>
+
+        <div class="footer-col links">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="#">Shop</a></li>
+            <li><a href="#">Categories</a></li>
+            <li><a href="#">Features</a></li>
+            <li><a href="#">About us</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col support">
+          <h3>Support</h3>
+          <ul>
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col newsletter">
+          <h3>Suscribe to our Newsletter</h3>
+          <p class="subtext">Receive instant updates on new tech gadgets</p>
+
+          <div class="subscribe-row">
+            <input
+              id="newsletter-input"
+              type="email"
+              placeholder="Input Email"
+              aria-label="Email address"
+            />
+            <button id="newsletter-btn" aria-label="Subscribe">
+              <!-- simple arrow icon -->
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M5 12h14M13 5l7 7-7 7"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <div class="socials">
+            <a class="social" href="#" aria-label="Call"
+              ><svg viewBox="0 0 24 24" width="16" height="16">
+                <path
+                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.09 4.18 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.72c.12 1.05.38 2.07.78 3.03a2 2 0 0 1-.45 2.11L8.09 10.91a16 16 0 0 0 6 6l1.06-1.06a2 2 0 0 1 2.11-.45c.96.4 1.98.66 3.03.78A2 2 0 0 1 22 16.92z"
+                  fill="currentColor"
+                /></svg
+            ></a>
+
+            <a class="social" href="#" aria-label="Facebook"
+              ><svg viewBox="0 0 24 24" width="16" height="16">
+                <path
+                  d="M22 12.07C22 6.48 17.52 2 12 2S2 6.48 2 12.07c0 4.9 3.66 8.97 8.44 9.78v-6.93H8.21V12h2.23V9.79c0-2.2 1.32-3.42 3.34-3.42.96 0 1.96.17 1.96.17v2.15h-1.1c-1.09 0-1.43.68-1.43 1.37V12h2.44l-.39 2.92h-2.05v6.93C18.34 21.04 22 16.97 22 12.07z"
+                  fill="currentColor"
+                /></svg
+            ></a>
+
+            <a class="social" href="#" aria-label="Instagram"
+              ><svg viewBox="0 0 24 24" width="16" height="16">
+                <path
+                  d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 6.5A4.5 4.5 0 1 0 16.5 13 4.5 4.5 0 0 0 12 8.5zm6.5-3a1 1 0 1 0 1 1 1 1 0 0 0-1-1z"
+                  fill="currentColor"
+                /></svg
+            ></a>
+
+            <a class="social" href="#" aria-label="Email"
+              ><svg viewBox="0 0 24 24" width="16" height="16">
+                <path d="M4 4h16v16H4z" fill="none" />
+                <path
+                  d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm-1.4 4.25L12 13.01 5.4 8.25A.5.5 0 0 1 6 8h12a.5.5 0 0 1 .6.25z"
+                  fill="currentColor"
+                /></svg
+            ></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <small>© <span id="year"></span> TechhNova. All rights reserved.</small>
+      </div>
+    </footer>
 
     <script src="script.js"></script>
   </body>
