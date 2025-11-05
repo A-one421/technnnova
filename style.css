@@ -2085,6 +2085,8 @@ body {
   flex: 1;
   overflow-y: auto;
   padding: 15px;
+  /* background-color: black; */
+  background: rgba(0, 0, 0, 0.6);
 }
 
 .cart-item {
@@ -2504,6 +2506,47 @@ body {
   height: 1px;
   background: linear-gradient(90deg, transparent, #cf24d2, transparent);
 }
+.sendmessage {
+  background-color: #0a0030;
+  color: #ffffff;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  box-shadow: 0 0 0 transparent;
+  letter-spacing: 0.5px;
+}
+
+.sendmessage:hover {
+  background-color: #120046;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 15px rgba(42, 0, 120, 0.4);
+}
+
+.sendmessage:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(42, 0, 120, 0.3);
+}
+
+/* Optional: Add a glowing animation */
+@keyframes glowPulse {
+  0% {
+    box-shadow: 0 0 5px rgba(42, 0, 120, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(120, 80, 255, 0.8);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(42, 0, 120, 0.4);
+  }
+}
+
+.sendmessage:hover {
+  animation: glowPulse 1.5s infinite alternate;
+}
 
 .contact-container {
   display: flex;
@@ -2553,7 +2596,7 @@ body {
 
 .contact-form-box {
   flex: 1;
-  max-width: 500px;
+  max-width: 900px;
   background: linear-gradient(
     135deg,
     rgba(45, 7, 84, 0.8),
@@ -2564,7 +2607,7 @@ body {
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(207, 36, 210, 0.2);
-  line-height: 50px;
+  line-height: 30px;
 }
 
 .contact-form-box h2 {
@@ -2580,7 +2623,7 @@ body {
 
 .contact-form-box p {
   margin-bottom: 30px;
-  font-size: 1.1rem;
+  font-size: 2rem;
   text-align: center;
   opacity: 0.9;
   line-height: 1.6;
@@ -2606,7 +2649,7 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.2);
   padding: 15px;
   border-radius: 10px;
-  color: #fff;
+  color: #ffffff;
   font-size: 1rem;
   transition: all 0.3s ease;
   font-family: inherit;
@@ -2626,7 +2669,7 @@ body {
 }
 
 .form-group textarea {
-  height: 120px;
+  height: 300px;
   resize: vertical;
   min-height: 120px;
 }
@@ -3140,366 +3183,144 @@ html {
   }
 }
 
-/* Footer setion*/
-:root {
-  --bg: #16051a; /* deep purple */
-  --panel: rgba(106, 19, 108, 0.08); /* subtle panel (if needed) */
-  --accent: #6a136c; /* purple accent */
-  --muted: rgba(255, 255, 255, 0.65);
-  --text: rgba(255, 255, 255, 0.92);
-  --input-bg: rgba(255, 255, 255, 0.03);
-}
-
-* {
-  box-sizing: border-box;
-}
-
-.site-footer {
-  background: linear-gradient(180deg, #0f0310 0%, var(--bg) 100%);
-  color: var(--text);
-  padding: 48px 16px 26px;
-  border-top: 1px solid rgba(255, 255, 255, 0.03);
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  gap: 32px;
-  align-items: flex-start;
-  padding: 0 20px;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-/* footer columns */
-.footer-col {
-  min-width: 180px;
-  flex: 1 1 200px;
-}
-
-.brand .logo {
-  font-family: "Lora", serif;
-  font-weight: 700;
-  margin: 0 0 14px;
-  color: var(--text);
+.footer {
+  background: #120027;
+  color: #ddd;
+  padding: 60px 8%;
+  font-family: "lateef";
   font-size: 20px;
+  font-weight: 400;
 }
 
-.brand-desc {
-  color: var(--muted);
-  line-height: 1.8;
-  font-size: 13px;
-  margin: 0;
+.footer-container {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: 40px;
 }
 
-/* headings */
-.footer-col h3 {
-  font-size: 15px;
-  margin: 0 0 14px;
+.footer-column h3,
+.footer-column h4 {
+  color: #ffffff;
+  margin-bottom: 15px;
   font-weight: 600;
-  color: var(--text);
 }
 
-/* lists */
-.footer-col ul {
+.footer-column p {
+  font-size: 20px;
+  line-height: 1.8;
+  color: #ffffff;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.footer-links h4 {
+  margin-bottom: 10px;
+}
+
+.footer-links ul {
   list-style: none;
   padding: 0;
-  margin: 0;
 }
-.footer-col li {
-  margin: 10px 0;
-}
-.footer-col a {
+
+.footer-links a {
   text-decoration: none;
-  color: var(--muted);
+  color: #ffffff;
   font-size: 14px;
-}
-.footer-col a:hover {
-  color: var(--text);
-  text-decoration: underline;
+  transition: 0.3s;
 }
 
-/* newsletter */
-.newsletter .subtext {
-  color: var(--muted);
-  font-size: 13px;
-  margin: 6px 0 12px;
+.footer-links a:hover {
+  color: #430b5d;
 }
 
-.subscribe-row {
+.newsletter-form {
   display: flex;
-  gap: 10px;
-  align-items: center;
-  margin-bottom: 14px;
+  background: #220044;
+  border-radius: 30px;
+  overflow: hidden;
+  margin: 15px 0;
 }
 
-.subscribe-row input[type="email"] {
+.newsletter-form input {
   flex: 1;
-  padding: 12px 16px;
-  border-radius: 28px;
-  border: 1px solid rgba(255, 255, 255, 0.03);
-  background: var(--input-bg);
-  color: var(--text);
-  outline: none;
+  padding: 10px 15px;
+  border: none;
+  background: transparent;
+  color: #fff;
   font-size: 14px;
 }
-.subscribe-row input::placeholder {
-  color: rgba(255, 255, 255, 0.35);
+
+.newsletter-form input::placeholder {
+  color: #aaa;
 }
 
-.subscribe-row button {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+.newsletter-form button {
+  background: #eee;
   border: none;
-  display: grid;
-  place-items: center;
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--text);
+  color: #111;
+  padding: 0 15px;
+  font-size: 18px;
   cursor: pointer;
-  flex: 0 0 40px;
-  transition: transform 0.14s ease, background 0.14s ease;
-}
-.subscribe-row button:hover {
-  transform: translateY(-2px);
-  background: rgba(255, 255, 255, 0.09);
+  transition: 0.3s;
 }
 
-.subscribe-row button svg {
-  display: block;
-  stroke: #fff;
-  fill: none;
+.newsletter-form button:hover {
+  background: #9f7aea;
   color: #fff;
 }
 
-/* socials */
-.socials {
-  margin-top: 6px;
+.social-icons {
   display: flex;
-  gap: 12px;
+  gap: 15px;
+  margin-top: 15px;
 }
-.social {
-  width: 36px;
-  height: 36px;
-  display: inline-grid;
-  place-items: center;
+
+.social-icons a {
+  background: #430b5d;
+  color: #fff;
+  font-size: 16px;
+  padding: 10px;
   border-radius: 50%;
-  background: rgba(106, 19, 108, 0.14);
-  color: var(--text);
-  text-decoration: none;
-  transition: transform 0.12s ease, background 0.12s ease;
-}
-.social:hover {
-  transform: translateY(-3px);
-  background: rgba(106, 19, 108, 0.24);
+  transition: 0.3s;
 }
 
-/* footer bottom */
-.footer-bottom {
-  max-width: 1200px;
-  margin: 18px auto 0;
-  padding: 0 20px;
-  color: var(--muted);
-  font-size: 13px;
-  border-top: 1px solid rgba(255, 255, 255, 0.02);
-  padding-top: 16px;
+.social-icons a:hover {
+  background: #430b5d;
 }
 
-/* responsive rules */
-@media (max-width: 880px) {
-  .container {
-    gap: 22px;
-  }
-  .brand-desc {
-    font-size: 13px;
-  }
-}
-
-@media (max-width: 680px) {
-  .container {
-    flex-direction: column;
-    gap: 26px;
-    align-items: stretch;
-  }
-  .footer-col {
-    flex: 1 1 100%;
-  }
-  .subscribe-row {
-    width: 100%;
-  }
-  .subscribe-row button {
-    flex: 0 0 44px;
-    height: 44px;
-    width: 44px;
-  }
-}
-
-/* ====== FOOTER MOBILE RESPONSIVE FIXES ====== */
-@media (max-width: 768px) {
-  .site-footer {
-    padding: 30px 16px 20px;
+/* Responsive Design */
+@media (max-width: 900px) {
+  .footer-container {
+    grid-template-columns: 1fr;
   }
 
-  .container {
-    flex-direction: column;
-    gap: 20px;
-    padding: 0 10px;
-  }
-
-  /* Arrange Technnova details and quick links side by side */
-  .footer-col:first-child,
-  .footer-col:nth-child(2) {
-    flex: 1 1 calc(50% - 10px);
-    min-width: unset;
-    display: inline-block;
-    vertical-align: top;
-  }
-
-  /* Ensure proper spacing between the two columns */
-  .footer-col:first-child {
-    padding-right: 15px;
-  }
-
-  .footer-col:nth-child(2) {
-    padding-left: 15px;
-  }
-
-  /* Stack newsletter and social below */
-  .footer-col:nth-child(3),
-  .footer-col:nth-child(4) {
-    flex: 1 1 100%;
-    width: 100%;
-    clear: both;
+  .footer-links {
+    justify-content: space-around;
+    flex-wrap: wrap;
     margin-top: 20px;
   }
 
-  /* Adjust newsletter for better mobile fit */
-  .newsletter .subtext {
-    font-size: 14px;
-    margin-bottom: 15px;
-  }
-
-  .subscribe-row {
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 20px;
-  }
-
-  .subscribe-row input[type="email"] {
-    width: 100%;
-    padding: 14px 16px;
-    font-size: 16px; /* Better for mobile touch */
-  }
-
-  .subscribe-row button {
-    width: 100%;
-    height: 48px;
-    border-radius: 24px;
-    flex: 0 0 auto;
-  }
-
-  /* Center social icons */
-  .socials {
-    justify-content: center;
-    margin-top: 15px;
-  }
-
-  .social {
-    width: 44px;
-    height: 44px;
+  .newsletter-form {
+    flex-direction: row;
   }
 }
 
 @media (max-width: 480px) {
-  .site-footer {
-    padding: 25px 12px 15px;
+  .footer {
+    padding: 40px 6%;
   }
 
-  /* Stack all sections vertically on very small screens */
-  .footer-col:first-child,
-  .footer-col:nth-child(2) {
-    flex: 1 1 100%;
-    padding: 0;
-    margin-bottom: 20px;
+  .footer-links {
+    flex-direction: row;
+    gap: 40px;
   }
 
-  .brand .logo {
-    font-size: 18px;
-    text-align: center;
-  }
-
-  .brand-desc {
-    text-align: center;
+  .social-icons a {
+    padding: 8px;
     font-size: 14px;
   }
-
-  .footer-col h3 {
-    text-align: center;
-    font-size: 16px;
-  }
-
-  .footer-col ul {
-    text-align: center;
-  }
-
-  .newsletter {
-    text-align: center;
-  }
-
-  .subscribe-row input[type="email"] {
-    padding: 12px 16px;
-  }
-
-  .subscribe-row button {
-    height: 44px;
-  }
-}
-
-/* Remove root color variables and use normal page colors */
-.site-footer {
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a0029 100%);
-  color: rgba(255, 255, 255, 0.92);
-}
-
-.brand-desc,
-.footer-col a,
-.newsletter .subtext,
-.footer-bottom {
-  color: rgba(255, 255, 255, 0.65);
-}
-
-.footer-col a:hover {
-  color: #cf24d2; /* Use your site's accent color */
-  text-decoration: none;
-}
-
-.subscribe-row input[type="email"] {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #fff;
-}
-
-.subscribe-row button {
-  background: linear-gradient(135deg, #cf24d2, #b132f0);
-  color: #fff;
-}
-
-.subscribe-row button:hover {
-  background: linear-gradient(135deg, #b132f0, #cf24d2);
-  transform: translateY(-2px);
-}
-
-.social {
-  background: rgba(207, 36, 210, 0.2);
-  color: #fff;
-}
-
-.social:hover {
-  background: rgba(207, 36, 210, 0.4);
-  transform: translateY(-3px);
-}
-
-.footer-bottom {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
