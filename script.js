@@ -416,6 +416,9 @@ function showProductDetails(product) {
     // Show success message
     showSuccessMessage(`Added ${currentQuantity} ${product.name}(s) to cart!`);
 
+    // Show cart instruction popup
+    showCartInstruction();
+
     // Optional: Close modal after a delay
     setTimeout(() => {
       closeModalFunc();
@@ -424,6 +427,29 @@ function showProductDetails(product) {
 
   // Show the modal
   modal.style.display = "block";
+}
+
+// NEW FUNCTION: Show cart instruction popup
+function showCartInstruction() {
+  // Remove any existing instruction
+  const existingInstruction = document.querySelector(".cart-instruction");
+  if (existingInstruction) {
+    existingInstruction.remove();
+  }
+
+  // Create new instruction element
+  const instruction = document.createElement("div");
+  instruction.className = "cart-instruction";
+  instruction.textContent =
+    "Check the cart icon at the top of the page to order now";
+
+  // Add to page
+  document.body.appendChild(instruction);
+
+  // Auto-remove after 5 seconds
+  setTimeout(() => {
+    instruction.remove();
+  }, 5000);
 }
 
 // NEW FUNCTION: Show success message
@@ -1026,77 +1052,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Your existing initialization code...
   new TestimonialCarousel();
-});
 
-// Promo section
-// Add a subtle fade-in animation when the section scrolls into view
-document.addEventListener("DOMContentLoaded", () => {
-  const promoSection = document.querySelector(".promo-section");
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        promoSection.classList.add("visible");
-      }
+  // NEW: Shop Now button navigation to products section
+  const shopNowBtn = document.getElementById("shopNowBtn");
+  if (shopNowBtn) {
+    shopNowBtn.addEventListener("click", () => {
+      document.getElementById("products-section").scrollIntoView({
+        behavior: "smooth",
+      });
     });
-  });
-
-  observer.observe(promoSection);
-});
-
-// paginato footer
-// minimal JS — no backend required. Validates email client-side and simulates subscription.
-document.addEventListener("DOMContentLoaded", function () {
-  const input = document.getElementById("newsletter-input");
-  const btn = document.getElementById("newsletter-btn");
-  const year = document.getElementById("year");
-  year.textContent = new Date().getFullYear();
-
-  function showMessage(msg, success = true) {
-    // lightweight toast
-    const el = document.createElement("div");
-    el.textContent = msg;
-    el.style.position = "fixed";
-    el.style.right = "20px";
-    el.style.bottom = "20px";
-    el.style.padding = "10px 14px";
-    el.style.borderRadius = "8px";
-    el.style.background = success
-      ? "rgba(37, 211, 102, 0.12)"
-      : "rgba(255,80,80,0.12)";
-    el.style.color = success ? "#bff2c6" : "#ffd1d1";
-    el.style.backdropFilter = "blur(4px)";
-    el.style.zIndex = 99999;
-    el.style.fontSize = "14px";
-    document.body.appendChild(el);
-    setTimeout(() => el.remove(), 2500);
   }
-
-  btn.addEventListener("click", function () {
-    const email = input.value.trim();
-    if (!email) {
-      showMessage("Please enter an email address.", false);
-      input.focus();
-      return;
-    }
-    // basic email regex
-    const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    if (!isValid) {
-      showMessage("Please enter a valid email.", false);
-      input.focus();
-      return;
-    }
-
-    // simulate success (since no backend). you can replace with API call later.
-    console.log("Newsletter subscribed:", email);
-    showMessage("Thanks! You are subscribed.");
-    input.value = "";
-  });
-
-  // allow pressing Enter to submit
-  input.addEventListener("keydown", function (e) {
-    if (e.key === "Enter") {
-      btn.click();
-    }
-  });
 });
+
+function subscribe(event) {
+  event.preventDefault();
+  const email = event.target.querySelector("input").value;
+  alert(`Thank you for subscribing, ${email}!`);
+  event.target.reset();
+}
