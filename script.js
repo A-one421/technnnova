@@ -45,16 +45,18 @@ document.querySelectorAll(".nav-links a").forEach((link) => {
   });
 });
 
+// Updated products with categories
 const products = [
   {
     name: "Apple Airpods",
     price: 28000,
     category: "Accessories",
-    brand: "Dell",
+    brand: "Apple",
     rating: 4,
     img: "pictures/apple.jpg",
     description:
       "Premium wireless earbuds with noise cancellation and seamless integration with Apple devices.",
+    collection: "best-sellers",
   },
   {
     name: "Iphone 16",
@@ -65,6 +67,7 @@ const products = [
     img: "pictures/iphone.jpg",
     description:
       "The latest iPhone with advanced camera system, A18 chip, and all-day battery life.",
+    collection: "trending-now",
   },
   {
     name: "SmartWatch",
@@ -75,26 +78,29 @@ const products = [
     img: "pictures/smartwatch.jpg",
     description:
       "Track your fitness, receive notifications, and stay connected with this advanced smartwatch.",
+    collection: "best-sellers",
   },
   {
     name: "Game Console",
     price: 37000,
     category: "Gaming",
-    brand: "HP",
+    brand: "Sony",
     rating: 5,
     img: "pictures/game.jpg",
     description:
       "Next-gen gaming console with 4K graphics, fast loading times, and exclusive titles.",
+    collection: "exclusive-deals",
   },
   {
     name: "Asus Vivobook",
     price: 500000,
     category: "Laptops",
-    brand: "Dell",
+    brand: "Asus",
     rating: 4,
     img: "pictures/laptop.jpg",
     description:
       "Powerful laptop for work and entertainment with high-performance processor and vibrant display.",
+    collection: "trending-now",
   },
   {
     name: "Bluetooth Speaker",
@@ -105,26 +111,29 @@ const products = [
     img: "pictures/blueetooth.jpg",
     description:
       "Portable speaker with crystal clear sound, deep bass, and long battery life.",
+    collection: "exclusive-deals",
   },
   {
     name: "Techno Spark Go",
     price: 42000,
     category: "Phones",
-    brand: "Bose",
+    brand: "Tecno",
     rating: 3,
     img: "pictures/sparkGo.jpg",
     description:
       "Stylish smartphone with powerful performance and long-lasting battery life",
+    collection: "best-sellers",
   },
   {
     name: "JBL Earphone",
     price: 42000,
     category: "Speakers",
-    brand: "Bose",
+    brand: "JBL",
     rating: 3,
     img: "pictures/jblspeaker.jpg",
     description:
       "Lightweight design with crystal-clear audio and noise isolation",
+    collection: "exclusive-deals",
   },
   {
     name: "Samsung smartwatch",
@@ -134,6 +143,7 @@ const products = [
     rating: 3,
     img: "pictures/smartwatch3.jpg",
     description: "Modern wristwatch blending style, speed, and smart features.",
+    collection: "trending-now",
   },
   {
     name: "Bluetooth Speaker",
@@ -144,35 +154,39 @@ const products = [
     img: "pictures/bluetooth1.jpg",
     description:
       "Wireless speaker with 360-degree sound and waterproof design.",
+    collection: "best-sellers",
   },
   {
     name: "Samsung Airbud",
     price: 42000,
-    category: "Speakers",
+    category: "Accessories",
     brand: "Samsung",
     rating: 3,
     img: "pictures/Airbud2.jpg",
     description:
       "True wireless earbuds with active noise cancellation and long battery life.",
+    collection: "trending-now",
   },
   {
     name: "Iphone 12",
     price: 42000,
     category: "Phones",
-    brand: "Iphone",
+    brand: "Apple",
     rating: 3,
     img: "pictures/iphone12.jpg",
     description:
       "Popular iPhone model with excellent performance and camera capabilities.",
+    collection: "exclusive-deals",
   },
   {
     name: "Apple watch",
     price: 42000,
     category: "Accessories",
-    brand: "Bose",
+    brand: "Apple",
     rating: 3,
     img: "pictures/smartwatch2.jpg",
     description: "Modern wristwatch blending style, speed, and smart features.",
+    collection: "best-sellers",
   },
   {
     name: "Galaxy z-flip",
@@ -182,6 +196,7 @@ const products = [
     rating: 3,
     img: "pictures/samsung2.jpg",
     description: "Modern wristwatch blending style, speed, and smart feature.",
+    collection: "trending-now",
   },
   {
     name: "Hp laptop 360",
@@ -191,15 +206,17 @@ const products = [
     rating: 3,
     img: "pictures/hplap.jpg",
     description: "Work, create, and play — all in one reliable laptop.",
+    collection: "exclusive-deals",
   },
   {
     name: "Virtual Reality",
     price: 42000,
     category: "Accessories",
-    brand: "Bose",
+    brand: "Oculus",
     rating: 3,
     img: "pictures/virtual.jpg",
     description: "Step into new worlds with immersive virtual reality",
+    collection: "trending-now",
   },
 ];
 
@@ -209,6 +226,9 @@ const priceValue = document.getElementById("priceValue");
 const modal = document.getElementById("productModal");
 const modalBody = document.getElementById("modalBody");
 const closeModal = document.querySelector(".close");
+const tabs = document.querySelectorAll(".tab");
+const pagination = document.querySelector(".pagination");
+const paginationButtons = document.querySelectorAll(".pagination button");
 
 // Current product and quantity for modal
 let currentProduct = null;
@@ -216,6 +236,67 @@ let currentQuantity = 1;
 
 // Track loved products
 let lovedProducts = new Set();
+
+// Pagination variables
+let currentPage = 1;
+const productsPerPage = 8;
+let filteredProducts = [...products];
+
+// Initialize tabs
+tabs.forEach((tab) => {
+  tab.addEventListener("click", () => {
+    tabs.forEach((t) => t.classList.remove("active"));
+    tab.classList.add("active");
+    filterProducts();
+  });
+});
+
+// Initialize pagination
+paginationButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    if (button.classList.contains("prev") && currentPage > 1) {
+      currentPage--;
+      displayProducts(getCurrentPageProducts());
+    } else if (
+      button.classList.contains("next") &&
+      currentPage < Math.ceil(filteredProducts.length / productsPerPage)
+    ) {
+      currentPage++;
+      displayProducts(getCurrentPageProducts());
+    } else if (button.classList.contains("page")) {
+      currentPage = parseInt(button.dataset.page);
+      displayProducts(getCurrentPageProducts());
+    }
+
+    updatePaginationButtons();
+  });
+});
+
+function getCurrentPageProducts() {
+  const startIndex = (currentPage - 1) * productsPerPage;
+  const endIndex = startIndex + productsPerPage;
+  return filteredProducts.slice(startIndex, endIndex);
+}
+
+function updatePaginationButtons() {
+  const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+
+  paginationButtons.forEach((button) => {
+    if (button.classList.contains("page")) {
+      const pageNum = parseInt(button.dataset.page);
+      button.style.display = pageNum <= totalPages ? "block" : "none";
+      button.classList.toggle("active", pageNum === currentPage);
+    }
+
+    if (button.classList.contains("prev")) {
+      button.disabled = currentPage === 1;
+    }
+
+    if (button.classList.contains("next")) {
+      button.disabled = currentPage === totalPages;
+    }
+  });
+}
 
 function displayProducts(list) {
   productList.innerHTML = "";
@@ -397,21 +478,27 @@ function filterProducts() {
   const selectedRating =
     document.querySelector("input[name='rating']:checked")?.value || 0;
   const maxPrice = parseInt(priceRange.value);
+  const activeTab = document.querySelector(".tab.active").dataset.category;
 
-  const filtered = products.filter(
+  filteredProducts = products.filter(
     (p) =>
       p.price <= maxPrice &&
       (selectedCategories.length
         ? selectedCategories.includes(p.category)
         : true) &&
       (selectedBrands.length ? selectedBrands.includes(p.brand) : true) &&
-      (selectedRating ? p.rating >= selectedRating : true)
+      (selectedRating ? p.rating >= selectedRating : true) &&
+      (activeTab !== "all" ? p.collection === activeTab : true)
   );
+
+  // Reset to first page when filtering
+  currentPage = 1;
 
   // Smooth fade-in for updated list
   productList.style.opacity = 0;
   setTimeout(() => {
-    displayProducts(filtered);
+    displayProducts(getCurrentPageProducts());
+    updatePaginationButtons();
     productList.style.opacity = 1;
   }, 300);
 }
@@ -430,7 +517,8 @@ document
   });
 
 // Initial load
-displayProducts(products);
+displayProducts(getCurrentPageProducts());
+updatePaginationButtons();
 
 // why-section.js
 // Simple scroll reveal using IntersectionObserver
@@ -956,3 +1044,59 @@ document.addEventListener("DOMContentLoaded", () => {
   observer.observe(promoSection);
 });
 
+// paginato footer
+// minimal JS — no backend required. Validates email client-side and simulates subscription.
+document.addEventListener("DOMContentLoaded", function () {
+  const input = document.getElementById("newsletter-input");
+  const btn = document.getElementById("newsletter-btn");
+  const year = document.getElementById("year");
+  year.textContent = new Date().getFullYear();
+
+  function showMessage(msg, success = true) {
+    // lightweight toast
+    const el = document.createElement("div");
+    el.textContent = msg;
+    el.style.position = "fixed";
+    el.style.right = "20px";
+    el.style.bottom = "20px";
+    el.style.padding = "10px 14px";
+    el.style.borderRadius = "8px";
+    el.style.background = success
+      ? "rgba(37, 211, 102, 0.12)"
+      : "rgba(255,80,80,0.12)";
+    el.style.color = success ? "#bff2c6" : "#ffd1d1";
+    el.style.backdropFilter = "blur(4px)";
+    el.style.zIndex = 99999;
+    el.style.fontSize = "14px";
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 2500);
+  }
+
+  btn.addEventListener("click", function () {
+    const email = input.value.trim();
+    if (!email) {
+      showMessage("Please enter an email address.", false);
+      input.focus();
+      return;
+    }
+    // basic email regex
+    const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!isValid) {
+      showMessage("Please enter a valid email.", false);
+      input.focus();
+      return;
+    }
+
+    // simulate success (since no backend). you can replace with API call later.
+    console.log("Newsletter subscribed:", email);
+    showMessage("Thanks! You are subscribed.");
+    input.value = "";
+  });
+
+  // allow pressing Enter to submit
+  input.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+      btn.click();
+    }
+  });
+});
