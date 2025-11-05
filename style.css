@@ -597,18 +597,23 @@ body {
 
 /* IMPROVED: Better checkbox and radio button styles for mobile */
 .filter-section input[type="checkbox"],
-.filter-section input[type="radio"],
-.filter-section input[type="range"] {
+.filter-section input[type="radio"] {
   -webkit-tap-highlight-color: transparent;
   outline: none;
-  accent-color: #cf24d2;
+  accent-color: #ffffff;
   transform: scale(1.2);
   margin-right: 8px;
   cursor: pointer;
   width: 60%;
   align-items: center;
 }
-
+.filter-section input[type="range"] {
+  -webkit-tap-highlight-color: transparent;
+  align-items: center;
+  accent-color: #6a136c80;
+  /* color: white; */
+  width: 100%;
+}
 /* ====== PRODUCT GRID ====== */
 .products-grid {
   display: grid;
